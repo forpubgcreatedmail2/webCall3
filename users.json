@@ -1,0 +1,77 @@
+{
+  "Satyam": {
+    "password": "$2b$10$2HoFl3iePnUbcjkbwsO/4Omo5Xotwd.wkNfgB0tuF67vvp09k0eK.",
+    "friends": [],
+    "requests": [
+      "9878987980"
+    ],
+    "name": "Satyam"
+  },
+  "shreya": {
+    "password": "$2b$10$kR8moYLzRwTnVeOk0dS2m.nFM42BCfZ2u5vn.cITDkPuIT3lSyFXm",
+    "friends": [],
+    "requests": [],
+    "name": "shreya"
+  },
+  "satyam2": {
+    "password": "$2b$10$tdRfgv8VIgdk86dVXPzTG.PbM6DMWizDe/o2/YL3MJbYGQEC90qOO",
+    "friends": [],
+    "requests": [
+      "Satyam"
+    ],
+    "name": "satyam2"
+  },
+  "Satyammob": {
+    "password": "$2b$10$TN/8WSjGHwWIEEpva/NOcejlHzvyJAOAVI2OMCrRSGy5IVdXmVJFW",
+    "friends": [
+      "6392238543",
+      "9878987980"
+    ],
+    "requests": [],
+    "name": "Satyammob"
+  },
+  "9878987980": {
+    "name": "shivam",
+    "password": "$2b$10$6UuhnUP9ckdZ3o/cgyxWuOPJaxGeHZq8r61nSMQ2o23m5ftgD0fZC",
+    "friends": [
+      "Satyammob"
+    ],
+    "requests": []
+  },
+  "6392238543": {
+    "name": "Shera",
+    "password": "$2b$10$j25DVYM/6jGzpsPqmEJPuuv8e0far9tAzddc6xM3MuxjwiL6l7jae",
+    "friends": [
+      "Satyammob"
+    ],
+    "requests": []
+  },
+  "8601650496": {
+    "name": "Satyam singh",
+    "password": "$2b$10$uD8EIbMwQcduvVOFl5xubu0PzjT.ETdHMu7WACxpaH7K4EG7E30vS",
+    "friends": [
+      "8601650497"
+    ],
+    "requests": [
+      "Satyammob"
+    ]
+  },
+  "8601650497": {
+    "name": "hari",
+    "password": "$2b$10$O1hSuqmmjyszhF4HVk.pzuWQaaWCT9MuQilZ.Q/wryl1IvsIup.IG",
+    "friends": [
+      "8601650496"
+    ],
+    "requests": [
+      "Satyammob"
+    ]
+  },
+  "7607680087": {
+    "name": "shivam",
+    "password": "$2b$10$Ivc0qdhxu5UzG0GERWxE6ujG73D1.KtTIiMkFdA6c9/UNtACL/FTK",
+    "friends": [],
+    "requests": [
+      "Satyammob"
+    ]
+  }
+}
