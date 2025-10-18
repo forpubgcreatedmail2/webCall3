@@ -1,0 +1,276 @@
+/* WhatsApp-like theme — mobile-first */
+:root{
+  --bg: #0b1414;
+  --panel: #0f2a23;
+  --chat-bg: #0b1414;
+  --text: #e7ede9;
+  --muted: #9aa7a0;
+  --accent: #25d366; /* WhatsApp green */
+  --accent-dark: #128c7e;
+  --danger: #e74c3c;
+  --glass: rgba(255,255,255,0.03);
+  --glass-2: rgba(255,255,255,0.02);
+}
+
+*{box-sizing:border-box;font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
+html,body{height:100%;margin:0;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased;}
+.app{height:100vh;display:flex;flex-direction:column;}
+
+/* Topbar */
+.topbar{
+  height:64px;display:flex;align-items:center;justify-content:space-between;
+  padding:8px 12px;background:linear-gradient(180deg,var(--panel), #0c221a);
+  border-bottom:1px solid rgba(0,0,0,0.35);
+}
+.brand{display:flex;align-items:center;gap:10px}
+.logo{width:44px;height:44px;border-radius:10px;background:var(--accent);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:20px;color:#fff}
+.brand-text .title{font-weight:700;font-size:16px}
+.brand-text .subtitle{font-size:12px;color:var(--muted)}
+
+/* Top actions */
+.top-actions{display:flex;align-items:center;gap:10px}
+.status{display:flex;align-items:center;gap:6px}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--muted);display:inline-block}
+.status-text{font-size:13px;color:var(--muted)}
+.icon-btn{background:transparent;border:none;color:var(--muted);font-size:18px;padding:8px;border-radius:8px;cursor:pointer}
+
+/* Layout */
+.layout{flex:1;display:flex;overflow:hidden}
+.panel{padding:10px;overflow:auto}
+.users{width:34%;min-width:260px;background:linear-gradient(180deg,#09221b,#0b2a23);border-right:1px solid rgba(0,0,0,0.4)}
+.chat{flex:1;background:linear-gradient(180deg,#07100f,#091411);display:flex;flex-direction:column;position:relative}
+.call{width:26%;min-width:240px;background:var(--panel);display:flex;align-items:center;justify-content:center;border-left:1px solid rgba(0,0,0,0.35)}
+
+/* Users head */
+.users-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:6px 0}
+.users-title h3{margin:0;font-size:18px}
+.users-actions .ghost{background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,0.03);padding:6px 8px;border-radius:8px;cursor:pointer}
+
+/* Search */
+.search-wrap{padding:8px 0}
+.search{width:100%;padding:10px;border-radius:12px;border:none;background:var(--glass);color:var(--text)}
+
+/* User list */
+.styled-list{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.user-item{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:10px;background:var(--glass);border-radius:12px;cursor:pointer;transition:transform .12s ease, background .12s}
+.user-item:hover{transform:translateY(-2px)}
+.user-item .dot.on{background:var(--accent)}
+.user-item .dot.off{background:rgba(255,255,255,0.06)}
+.user-name{font-weight:600}
+
+/* Chat head */
+.chat-head{display:flex;align-items:center;gap:12px;padding:10px;border-bottom:1px solid rgba(255,255,255,0.02)}
+.back-btn{display:none;background:transparent;border:none;color:var(--muted);font-size:18px;padding:6px;border-radius:8px;cursor:pointer}
+.chat-info{display:flex;flex:1;align-items:center;justify-content:space-between}
+.chat-title-row{display:flex;gap:10px;align-items:center}
+.chat-avatar{width:44px;height:44px;border-radius:50%;background:var(--glass);display:flex;align-items:center;justify-content:center}
+.chat-name{font-weight:700}
+.chat-sub{font-size:13px;color:var(--muted)}
+.call-btn{background:var(--accent);border:none;padding:8px 10px;border-radius:10px;color:#fff;font-weight:700;cursor:pointer}
+
+/* Messages */
+.messages{flex:1;padding:14px;display:flex;flex-direction:column;gap:8px;overflow:auto;background-image:linear-gradient(transparent, rgba(0,0,0,0.02))}
+.msg{max-width:86%;padding:10px;border-radius:12px;background:rgba(255,255,255,0.03);line-height:1.25}
+.msg.me{margin-left:auto;background:linear-gradient(180deg,var(--accent),var(--accent-dark));color:#03241f;font-weight:600}
+.msg .time{display:block;font-size:11px;color:var(--muted);margin-top:6px}
+
+/* Composer */
+.composer{display:flex;gap:8px;padding:10px;background:var(--panel);align-items:flex-end;border-top:1px solid rgba(255,255,255,0.02)}
+.compose-input{flex:1;padding:10px;border-radius:14px;background:transparent;border:1px solid rgba(255,255,255,0.03);color:var(--text);min-height:44px;resize:none}
+.composer-right{display:flex;flex-direction:column;gap:8px}
+.send-btn{background:var(--accent);border:none;color:#02221c;padding:10px;border-radius:10px;font-weight:700;cursor:pointer}
+.icon-btn{background:transparent;border:none;color:var(--muted);padding:6px;border-radius:8px;cursor:pointer}
+
+/* Floating action button */
+.fab{position:fixed;right:18px;bottom:22px;background:var(--accent);color:#02221c;border:none;width:56px;height:56px;border-radius:50%;font-size:22px;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(0,0,0,0.5);cursor:pointer}
+
+/* Call overlay */
+.overlay{position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:60}
+.overlay.active{display:flex}
+.call-fullscreen{width:100%;height:100%;display:flex;flex-direction:column;background:#000;color:#fff}
+.call-top{display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:linear-gradient(180deg, rgba(0,0,0,0.6), transparent)}
+.call-left{display:flex;gap:12px;align-items:center}
+.call-avatar{width:44px;height:44px;border-radius:10px;background:rgba(255,255,255,0.04);display:flex;align-items:center;justify-content:center}
+.video-full {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+}
+
+#remoteVideo,
+#localVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: all 0.3s ease;
+  border-radius: 0;
+}
+
+/* Default: remote fullscreen, local small preview */
+#localVideo {
+  width: 120px;
+  height: 150px;
+  right: 16px;
+  bottom: 16px;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  z-index: 2;
+  object-fit: cover;
+}
+.local-small{position:absolute;right:16px;bottom:16px;width:120px;height:150px;border-radius:10px;border:2px solid rgba(255,255,255,0.08)}
+.switch-btn{position:absolute;top:12px;right:12px;background:rgba(0,0,0,0.5);border:none;padding:8px;border-radius:8px;color:#fff}
+.call-controls{display:flex;gap:12px;align-items:center;justify-content:center;padding:12px;background:linear-gradient(180deg, rgba(0,0,0,0.6), transparent)}
+
+/* Ring */
+.ring-overlay .ring-card{width:320px;padding:18px;border-radius:12px;background:linear-gradient(180deg,#093226,#072617);box-shadow:0 10px 30px rgba(0,0,0,0.6);text-align:center}
+.ring-actions{margin-top:12px;display:flex;gap:10px;justify-content:center}
+
+/* Toast */
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:26px;background:#0b2a23;padding:10px 16px;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,0.6);z-index:80}
+.toast.hidden{opacity:0;pointer-events:none;transition:opacity .3s}
+
+/* Auth modals */
+.modal-backdrop{background:linear-gradient(0deg, rgba(0,0,0,0.6), rgba(0,0,0,0.6));display:flex;align-items:center;justify-content:center}
+.card.auth-card{width:340px;padding:18px;border-radius:12px;background:linear-gradient(180deg,#07201a,#052018);box-shadow:0 10px 30px rgba(0,0,0,0.6)}
+.input{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.03);background:transparent;color:var(--text);margin:8px 0}
+.btn{background:var(--accent);color:#02221c;padding:10px;border-radius:10px;border:none;cursor:pointer}
+.hang{background:var(--danger);color:#fff;padding:10px;border-radius:10px;border:none;cursor:pointer}
+.linkish{color:var(--accent);cursor:pointer}
+.small{font-size:13px}
+.muted{color:var(--muted)}
+
+/* Responsive adjustments */
+@media (max-width: 900px){
+  .layout{flex-direction:column}
+  .users{width:100%;min-width:0;border-right:none}
+  .chat{width:100%}
+  .call{display:none}
+  .back-btn{display:inline-block}
+  .fab{right:14px;bottom:18px}
+  .user-item{padding:12px}
+  .local-small{width:110px;height:140px;right:12px;bottom:12px}
+}
+
+.msg{max-width:80%;padding:8px 12px;border-radius:16px;line-height:1.3;position:relative;font-size:14px;animation:fadeIn .2s}
+.msg.me{margin-left:auto;background:var(--msg-out);color:#e7ede9;border-bottom-right-radius:4px}
+.msg.other{background:var(--msg-in);color:#e7ede9;border-bottom-left-radius:4px}
+.msg .meta{display:flex;justify-content:flex-end;font-size:11px;color:var(--muted);margin-top:4px;gap:4px}
+.msg .ticks{color:#53bdeb;font-weight:bold}
+/* Swappable video styles */
+.video-full.swap-active #localVideo {
+  width: 100%;
+  height: 100%;
+  right: 0;
+  bottom: 0;
+  border: none;
+  border-radius: 0;
+  z-index: 1;
+}
+
+.video-full.swap-active #remoteVideo {
+  width: 120px;
+  height: 150px;
+  right: 16px;
+  bottom: 16px;
+  border-radius: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  z-index: 2;
+}
+
+.btn-small {
+  background: rgba(255, 255, 255, 0.05);
+  border: none;
+  padding: 6px 8px;
+  border-radius: 8px;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+}
+.btn-small:hover { background: rgba(255,255,255,0.15); }
+.btn-small.danger-btn { background: rgba(255, 69, 58, 0.2); color: #ff6b6b; }
+.btn-small.danger-btn:hover { background: rgba(255, 69, 58, 0.4); }
+
+
+#reconnectBtn {
+  background: #202c33;
+  color: #e9edef;
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+#reconnectBtn:hover {
+  background: #2a3942;
+  transform: scale(1.05);
+}
+
+#logoutBtn {
+  background: linear-gradient(145deg, #ff3b30, #d90429);
+  color: #fff;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-weight: 600;
+  box-shadow: 0 0 10px rgba(255, 59, 48, 0.3);
+  margin-left: 10px;
+}
+#logoutBtn:hover {
+  background: #ff6b6b;
+  transform: scale(1.05);
+}
+
+/* ===== Emoji button next to input ===== */
+#emojiBtn {
+  background: transparent;
+  color: #aaa;
+  border: none;
+  font-size: 22px;
+  transition: 0.25s ease;
+  cursor: pointer;
+  margin-right: 6px;
+}
+#emojiBtn:hover {
+  color: #25d366; /* WhatsApp green glow */
+  transform: scale(1.2);
+}
+
+
+/* ===== Green Calling Button (WhatsApp Style) ===== */
+#chatCallBtn {
+  background: linear-gradient(145deg, #25d366, #128c7e);
+  color: white;
+  font-size: 20px;
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.25s ease;
+  box-shadow: 0 0 12px rgba(37, 211, 102, 0.4);
+  position: relative;
+}
+
+/* Hover animation */
+#chatCallBtn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(37, 211, 102, 0.6);
+  background: linear-gradient(145deg, #20bfa9, #128c7e);
+}
+
+/* When call is active, pulse glow effect */
+#chatCallBtn.calling {
+  animation: pulse-green 1.2s infinite;
+}
+
+@keyframes pulse-green {
+  0% { box-shadow: 0 0 10px rgba(37, 211, 102, 0.4); }
+  50% { box-shadow: 0 0 25px rgba(37, 211, 102, 0.8); transform: scale(1.1); }
+  100% { box-shadow: 0 0 10px rgba(37, 211, 102, 0.4); transform: scale(1.0); }
+}
+
+

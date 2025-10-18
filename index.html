@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Dial — Chat & Call (WhatsApp-style)</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo">D</div>
+        <div>
+          <div class="title">Dial — Chat & Call</div>
+          <div class="small" style="color:var(--muted)">Realtime calls • Friends • Mobile friendly</div>
+        </div>
+      </div>
+      <div class="status">
+        <div id="wsDot" class="dot"></div>
+        <div id="statusText">Idle</div>
+        <button id="logoutBtn" class="toggle" style="margin-left:10px;">Logout</button>
+      </div>
+    </div>
+
+    <div class="layout">
+      <!-- LEFT: Contacts / Users -->
+      <div class="panel users" id="contactsPanel">
+        <div class="users-head">
+          <h4 style="margin:0">Contacts</h4>
+          <div id="onlineCount" class="small" style="color:var(--muted)">— online</div>
+        </div>
+
+        <div class="user-list styled-list" role="list" id="userList"></div>
+
+        <div class="connect-area">
+          <div style="display:flex;gap:8px;margin-top:8px">
+            <button id="connectBtn" class="btn">Connect WS</button>
+            <button id="reconnectBtn" class="toggle">Reconnect</button>
+          </div>
+          <div id="wsStatus" class="small" style="margin-top:8px;color:var(--muted)">Not connected</div>
+        </div>
+
+        <hr>
+
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div class="small" style="color:var(--muted)">You: <b id="currentUser">—</b></div>
+          <div class="small" style="color:var(--muted)">Peer: <b id="currentPeer">—</b></div>
+        </div>
+      </div>
+
+      <!-- CENTER: Chat (hidden until a contact is opened) -->
+      <div class="panel chat" id="chatPanel" aria-hidden="true">
+        <div class="chat-head">
+          <button id="backToContacts" class="toggle small back-btn">←</button>
+          <div style="display:flex;flex-direction:column;flex:1">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <h4 id="chatTitle" style="margin:0">Chat</h4>
+              <div style="display:flex;gap:8px;align-items:center">
+                <button id="chatCallBtn" class="btn-small">📞</button>
+              </div>
+            </div>
+            <div style="color:var(--muted);font-size:13px" id="chatSubtitle">—</div>
+          </div>
+        </div>
+
+        <div id="messages" class="messages" aria-live="polite"></div>
+
+        <div class="composer">
+          <textarea id="msgInput" class="compose-input" placeholder="Type a message — Enter to send"></textarea>
+          <div style="display:flex;flex-direction:column;gap:8px;align-items:center">
+            <button id="sendBtn" class="btn">Send</button>
+            <button id="emojiBtn" class="muted-btn">😊</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: (removed persistent call UI) small placeholder for desktop -->
+      <div class="panel call" id="rightPanel">
+        <div style="text-align:center;color:var(--muted);padding:20px">
+          Calls appear as full-screen overlays when active.
+        </div>
+      </div>
+    </div>
+
+    <!-- Incoming call overlay (also used as active call view, full-screen) -->
+    <div id="callOverlay" class="overlay">
+      <div class="call-fullscreen">
+        <div class="call-top">
+          <div style="display:flex;align-items:center;gap:12px">
+            <div class="logo small-call">📞</div>
+            <div>
+              <div id="callPeerName" style="font-weight:600">—</div>
+              <div id="callState" class="small" style="color:var(--muted)">Connecting…</div>
+            </div>
+          </div>
+          <button id="endCallBtn" class="hang">Hang up</button>
+        </div>
+
+        <div id="videoContainer" class="video-full">
+          <video id="remoteVideo" autoplay playsinline></video>
+          <video id="localVideo" autoplay muted playsinline class="small"></video>
+          <button id="switchCameraBtn" class="switch-btn">🔄</button>
+        </div>
+
+        <div class="call-controls">
+          <button id="muteBtn" class="icon-btn toggle">Mute</button>
+          <button id="videoBtn" class="icon-btn toggle">Video Off</button>
+          <div id="callTimer" class="small" style="color:var(--muted);margin-left:8px">00:00</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="ringOverlay" class="overlay ring-overlay">
+      <div class="ring-card">
+        <div style="font-size:16px">📞 Incoming call from <b id="ringFrom">—</b></div>
+        <div style="margin-top:12px;display:flex;gap:8px;justify-content:center">
+          <button id="acceptBtn" class="btn">Accept</button>
+          <button id="rejectBtn" class="hang">Reject</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast" class="toast hidden"></div>
+  </div>
+
+  <!-- LOGIN MODAL -->
+  <div id="loginModal" class="overlay active" style="background:rgba(0,0,0,0.7)">
+    <div class="ring-card" style="width:320px;text-align:center">
+      <h3>Login</h3>
+      <input id="liMobile" class="input" placeholder="Mobile number or id" style="margin:6px 0">
+      <input id="liPass" type="password" class="input" placeholder="Password" style="margin:6px 0">
+      <button id="loginBtn" class="btn" style="width:100%;margin-top:8px">Login</button>
+      <div class="small" style="margin-top:10px;color:var(--muted)">
+        <span id="toSignup" style="cursor:pointer;text-decoration:underline">Create account</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIGNUP MODAL -->
+  <div id="signupModal" class="overlay" style="background:rgba(0,0,0,0.7)">
+    <div class="ring-card" style="width:320px;text-align:center">
+      <h3>Create Account</h3>
+      <input id="suName" class="input" placeholder="Full name" style="margin:6px 0">
+      <input id="suMobile" class="input" placeholder="Mobile number" style="margin:6px 0">
+      <input id="suPass" type="password" class="input" placeholder="Password" style="margin:6px 0">
+      <input id="suConfirm" type="password" class="input" placeholder="Re-enter password" style="margin:6px 0">
+      <button id="signupBtn" class="btn" style="width:100%;margin-top:8px">Sign up</button>
+      <div class="small" style="margin-top:10px;color:var(--muted)">
+        <span id="toLogin" style="cursor:pointer;text-decoration:underline">Back to login</span>
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
